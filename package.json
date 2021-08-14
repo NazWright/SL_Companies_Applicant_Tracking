@@ -1,0 +1,11 @@
+{
+  "name": "sl-companies-applicant-tracking",
+  "version": "1.0.0",
+  "description": "Applicant tracking system for Staffing Logistics written in Node.js",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Nazere Wright",
+  "license": "ISC"
+}
