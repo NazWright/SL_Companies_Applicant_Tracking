@@ -13,5 +13,13 @@
     "express": "^4.17.1",
     "mongoose": "^5.13.7",
     "nodemon": "^2.0.12"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/NazWright/SL_Companies_Applicant_Tracking.git"
+  },
+  "bugs": {
+    "url": "https://github.com/NazWright/SL_Companies_Applicant_Tracking/issues"
+  },
+  "homepage": "https://github.com/NazWright/SL_Companies_Applicant_Tracking#readme"
 }
