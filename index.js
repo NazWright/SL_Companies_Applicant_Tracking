@@ -5,13 +5,13 @@ const app = express();
 var path = require("path");
 var http = require("http").Server(app);
 //var validator = require("express-validator");
-//const mongoose = require("mongoose");
+const mongoose = require("mongoose");
 //const passport = require("passport");
 // import controller
 //require("./model");
 //require("./service/passport");
 //var AuthController = require("./controllers/AuthController");
-//var keys = require("./config/keys");
+var keys = require("./config/keys");
 
 //var session = require("express-session");
 //var bodyParser = require("body-parser");
@@ -20,21 +20,20 @@ var http = require("http").Server(app);
 
 //const cookieSession = require("cookie-session");
 
-// test env rules
-// if (process.env.NODE_ENV !== "test") {
-//   mongoose
-//     .connect(keys.mongoURI, {
-//       useNewUrlParser: true,
-//       useUnifiedTopology: true,
-//     })
-//     .then(() => {
-//       console.log("Connection successful");
-//     })
-//     .catch((error) => {
-//       console.error("Error: Failed to connect to database.", error);
-//     });
-// }
-
+//test env rules
+if (process.env.NODE_ENV !== "test") {
+  mongoose
+    .connect(keys.mongoURI, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    })
+    .then(() => {
+      console.log("Connection successful");
+    })
+    .catch((error) => {
+      console.error("Error: Failed to connect to database.", error);
+    });
+}
 app.use(express.json());
 
 // app.use(
@@ -92,7 +91,8 @@ app.set("view engine", "ejs");
 //pageRouter(app);
 
 app.get("/", function (req, res) {
-  res.redirect("/");
+  //res.redirect("/");
+  res.send("Home!");
 });
 
 const PORT = process.env.PORT || 5000;
