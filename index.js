@@ -6,10 +6,10 @@ var path = require("path");
 var http = require("http").Server(app);
 //var validator = require("express-validator");
 const mongoose = require("mongoose");
-//const passport = require("passport");
+const passport = require("passport");
 // import controller
-//require("./model");
-//require("./service/passport");
+require("./model");
+require("./service/passport");
 //var AuthController = require("./controllers/AuthController");
 var keys = require("./config/keys");
 
