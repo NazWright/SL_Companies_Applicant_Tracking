@@ -13,7 +13,7 @@ require("./service/passport");
 var AuthController = require("./controller/AuthController");
 var keys = require("./config/keys");
 var flash = require("connect-flash");
-//var i18n = require("i18n-express");
+var i18n = require("i18n-express");
 
 const cookieSession = require("cookie-session");
 
@@ -54,13 +54,13 @@ app.use(
 //   })
 // );
 app.use(flash());
-// app.use(
-//   i18n({
-//     translationsPath: path.join(__dirname, "i18n"), // <--- use here. Specify translations files path.
-//     siteLangs: ["es", "en", "de", "ru", "it", "fr"],
-//     textsVarName: "translation",
-//   })
-// );
+app.use(
+  i18n({
+    translationsPath: path.join(__dirname, "i18n"), // <--- use here. Specify translations files path.
+    siteLangs: ["es", "en", "de", "ru", "it", "fr"],
+    textsVarName: "translation",
+  })
+);
 
 app.use("/public", express.static("public"));
 
