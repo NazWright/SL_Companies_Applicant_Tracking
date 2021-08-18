@@ -267,11 +267,11 @@ module.exports = (app, passport) => {
 
   // Forms
   app.get("/form-elements", isUserAllowed, function (req, res) {
-    res.locals = { title: "Basic Elements" };
+    res.locals = { title: "Basic Elements", user: req.user };
     res.render("Form/form-elements");
   });
   app.get("/form-validation", isUserAllowed, function (req, res) {
-    res.locals = { title: "Validation" };
+    res.locals = { title: "Validation", user: req.user };
     res.render("Form/form-validation");
   });
   app.get("/form-advanced", isUserAllowed, function (req, res) {
@@ -430,4 +430,12 @@ module.exports = (app, passport) => {
   // jobs routes
 
   //application routes
+  app.get("/application", (req, res) => {
+    var today = new Date();
+    const month =
+      today.getMonth() < 10 ? `0${today.getUTCMonth()}` : today.getUTCMonth();
+    today = `${today.getFullYear()}-${month}-${today.getDate()}`;
+    res.locals = { title: "Application", user: req.user };
+    res.render("Application/step-1.ejs");
+  });
 };

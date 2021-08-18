@@ -8,7 +8,7 @@ var http = require("http").Server(app);
 const mongoose = require("mongoose");
 const passport = require("passport");
 // import controller
-require("./model");
+require("./db-objects");
 require("./service/passport");
 var AuthController = require("./controller/AuthController");
 var keys = require("./config/keys");

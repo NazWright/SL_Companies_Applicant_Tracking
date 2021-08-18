@@ -1,3 +1,5 @@
+const joi = require("joi");
+
 module.exports = {
-  USER: require("./User"),
+  USER: require("./User/User")(joi),
 };

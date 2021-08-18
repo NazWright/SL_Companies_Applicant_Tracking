@@ -1,0 +1,155 @@
+<%- contentFor('HeaderCss') %>
+<script type="text/javascript">
+  let value;
+</script>
+
+<%- contentFor('breadcrumb') %>
+<!-- start page title -->
+<div class="row">
+  <div class="col-12">
+    <div
+      class="page-title-box d-flex align-items-center justify-content-between"
+    >
+      <h4 class="mb-0">Application</h4>
+
+      <div class="page-title-right">
+        <ol class="breadcrumb m-0">
+          <li class="breadcrumb-item">
+            <a href="javascript: void(0);">Applications</a>
+          </li>
+          <li class="breadcrumb-item active">Step 1</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- end page title -->
+
+<%- contentFor('body') %>
+<div class="row">
+  <div class="col-12">
+    <div class="card">
+      <div class="card-body">
+        <h4 class="card-title">Basic Information</h4>
+        <p class="card-title-desc">
+          Please provide and verify your identity and contact information below.
+        </p>
+        <!--Begin first form row: First Name and Last Name-->
+        <div class="row">
+          <div class="col-md-6">
+            <div class="mb-3">
+              <label class="form-label" for="formrow-firstname-input"
+                >First Name</label
+              >
+              <input
+                type="text"
+                class="form-control"
+                id="formrow-firstname-input"
+                value="<%= user.givenName%>"
+              />
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="mb-3">
+              <label class="form-label" for="formrow-lastname-input"
+                >Last Name</label
+              >
+              <input
+                type="text"
+                class="form-control"
+                id="formrow-lastname-input"
+                value="<%= user.familyName%>"
+              />
+            </div>
+          </div>
+        </div>
+        <!--END first form row: First Name and Last Name-->
+
+        <!--BEGIN 2nd form row: Email-->
+        <div class="row">
+          <div class="col-md-6">
+            <div class="mb-3">
+              <label class="form-label" for="formrow-email-input">Email</label>
+              <input
+                type="email"
+                class="form-control"
+                id="formrow-email-input"
+                value="<%= user.email%>"
+              />
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="mb-3">
+              <label class="form-label" for="formrow-confirm-input"
+                >Confirm Email</label
+              >
+              <input
+                type="text"
+                class="form-control"
+                id="formrow-confirm-input"
+                value="<%= user.email%>"
+              />
+            </div>
+          </div>
+        </div>
+        <!--END 2nd form row: Email-->
+        <div class="mb-3">
+          <label class="form-label" for="formrow-date-input">Date</label>
+          <input
+            class="form-control"
+            type="date"
+            value=""
+            id="formrow-date-input"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="formrow-ssn-input"
+            >Social Security Number</label
+          >
+          <input class="form-control" type="password" id="formrow-ssn-input" />
+        </div>
+
+        <div class="mb-3" id="yo">
+          <data value="yo"> </data>
+          <label class="form-label" for="formrow-ssn-input"
+            >What type of employment are you seeking?</label
+          >
+          <input class="form-control" type="text" id="tags-input" />
+          <div
+            class="form-control"
+            style="display: none"
+            id="tag-suggestions"
+          ></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<%- contentFor('FooterJs') %>
+
+<script type="text/javascript">
+  const tagInput = document.getElementById("tags-input");
+  const suggestions = document.getElementById("tag-suggestions");
+  tagInput.addEventListener("keyup", function (event) {
+    if (event.target) {
+      if (event.target.value) {
+        suggestions.style.display = "inline-block";
+        // populate the suggestions here.
+      } else {
+        suggestions.style.display = "none";
+      }
+    }
+  });
+
+  suggestions.addEventListener("click", function (event) {
+    if (event.target) {
+      suggestions.style.display = "none";
+    }
+  });
+
+  //if a suggestion is selected, then stop showing dropdown.
+</script>
+
+<%- contentFor('BottomJs') %>
