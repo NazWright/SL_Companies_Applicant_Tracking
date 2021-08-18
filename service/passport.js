@@ -4,7 +4,7 @@ const LocalStrategy = require("passport-local").Strategy;
 const mongoose = require("mongoose");
 const keys = require("../config/keys");
 const bcrypt = require("bcrypt");
-
+const UserService = require("./UserService/UserServiceImpl");
 const User = mongoose.model("users");
 
 passport.serializeUser((user, done) => {
@@ -26,38 +26,29 @@ passport.use(
       proxy: true,
       passReqToCallback: true,
     },
-    (req, accessToken, refreshToken, profile, done) => {
+    async (req, accessToken, refreshToken, profile, done) => {
       const { id, name, emails } = profile;
       console.log("email", name);
-      User.findOne({
+      const matchedUser = await UserService.authenticateUser(User, {
         googleId: id,
         familyName: name.familyName,
         givenName: name.givenName,
         email: emails[0].value,
-      }).then((existingUser) => {
-        if (existingUser) {
-          console.log("found user!");
-          // we already have a record with the given profile ID
-
-          done(null, existingUser);
-        } else {
-          console.log("found  no user!");
-          // we don't have a user record with this ID, make a new record!
-          new User({
-            googleId: id,
-            familyName: name.familyName,
-            givenName: name.givenName,
-            email: emails[0].value,
-            role: "",
-            isAdmin: false,
-            parent: null,
-          })
-            .save()
-            .then((user) => {
-              done(null, user);
-            });
-        }
       });
+      if (matchedUser) {
+        done(null, matchedUser);
+      } else {
+        const newUser = await new User({
+          googleId: id,
+          familyName: name.familyName,
+          givenName: name.givenName,
+          email: emails[0].value,
+          role: "",
+          isAdmin: false,
+          parent: null,
+        }).save();
+        done(null, newUser);
+      }
     }
   )
 );
