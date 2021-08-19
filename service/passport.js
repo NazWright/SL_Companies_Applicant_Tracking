@@ -56,25 +56,20 @@ passport.use(
 passport.use(
   new LocalStrategy(
     { usernameField: "email", passwordField: "password" },
-
-    function (email, password, done) {
-      User.findOne({ email: email }, function (err, user) {
-        if (err) {
-          return done(err);
-        }
-        if (!user) {
-          return done(null, false, { message: "User not found" });
-        }
-        bcrypt.compare(password, user.password, (err, same) => {
-          if (err) {
-            return done(err);
-          }
-          if (!same) {
-            return done(null, false);
-          }
-        });
-        return done(null, user);
-      });
+    async function (email, password, done) {
+      const matchedUser = await UserService.authenticateUser(User, { email });
+      if (Object.keys(matchedUser).length < 0) {
+        return done(null, false, { message: "User information not found." });
+      }
+      if (!matchedUser.password) {
+      }
+      const same = matchedUser.password
+        ? await bcrypt.compare(password, matchedUser.password)
+        : false;
+      // error
+      // cant find user
+      // passwords match
+      // passwords dont match
     }
   )
 );

@@ -1,6 +1,7 @@
 module.exports = (app, passport) => {
-  require("./authRoutes")(app);
+  require("./authRoutes")(app, passport);
   //require("./fileUploadRoutes")(app);
+  require("./userManagementRoutes")(app);
 
   function isUserAllowed(req, res, next) {
     if (req.user) {

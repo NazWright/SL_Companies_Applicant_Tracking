@@ -89,3 +89,5 @@ const PORT = process.env.PORT || 5000;
 http.listen(PORT, function () {
   console.log("listening on " + PORT);
 });
+
+module.exports = app;

@@ -1,6 +1,4 @@
-const passport = require("passport");
-
-module.exports = (app) => {
+module.exports = (app, passport) => {
   // Inner Auth
   app.get("/auth-login", function (req, res) {
     res.locals = { title: "Login" };
