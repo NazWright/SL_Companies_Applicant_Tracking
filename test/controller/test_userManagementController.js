@@ -11,6 +11,7 @@ const isObjectEmpty = (testedObject) => {
 describe("Testing the user controller", () => {
   const email = "nazwrightthedeveloper@gmail.com";
   const server = request(app);
+  var userId;
 
   before(() => {
     User.deleteMany({}, (err, result) => {
@@ -30,6 +31,7 @@ describe("Testing the user controller", () => {
     const isResponseEmpty = isObjectEmpty(response.body);
     assert(!isResponseEmpty);
     assert(response.body._id);
+    userId = response.body._id;
     assert(response.body.password);
     // assert that password was hashed
     const same = await bcrypt.compare(password, response.body.password);
@@ -43,9 +45,26 @@ describe("Testing the user controller", () => {
     assert(response.body._id);
   });
 
-  it("Should find any user by their user id", async () => {});
+  it("Should find any user by their user id and update", async () => {
+    const updatedEmail = "nazwrightisnotthedeveloper@gmail.com";
+    const response = await server
+      .put("/api/users/update")
+      .send({ _id: userId, email: updatedEmail });
+    if (userId) {
+      const isResponseEmpty = isObjectEmpty(response.body);
+      assert(!isResponseEmpty);
+      assert(response.body._id && response.body.email);
+      assert(response.status === 200);
+    } else {
+      // assert on an error
+    }
+  });
 
-  it("Should find a user by their Id and update their information", async () => {});
-
-  it("delete a user from the system", async () => {});
+  it("delete a user from the system", async () => {
+    const response = await server.delete(`/api/users/delete/${userId}`);
+    const isResponseEmpty = isObjectEmpty(response.body);
+    assert(!isResponseEmpty);
+    assert(response.body._id && response.body.email);
+    assert(response.status === 200);
+  });
 });
