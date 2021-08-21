@@ -3,10 +3,7 @@ const request = require("supertest");
 const User = require("../../db-objects/User");
 const app = require("../../index");
 const bcrypt = require("bcrypt");
-
-const isObjectEmpty = (testedObject) => {
-  return Object.keys(testedObject).length === 0;
-};
+const { isObjectEmpty } = require("../../helpers/index");
 
 describe("Testing the user controller", () => {
   const email = "nazwrightthedeveloper@gmail.com";

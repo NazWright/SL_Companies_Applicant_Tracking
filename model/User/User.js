@@ -25,14 +25,9 @@ module.exports = (joi) => {
     _id: commmonProperties._id.required(),
   });
 
-  const userDeleteSchema = {
-    _id: commmonProperties._id.required(),
-  };
-
   return {
     userCreationSchema,
     userRetrievalSchema,
     userUpdateSchema,
-    userDeleteSchema,
   };
 };

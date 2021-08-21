@@ -2,12 +2,8 @@ const bcrypt = require("bcrypt");
 const mongoose = require("mongoose");
 const User = mongoose.model("users");
 const joi = require("joi");
-const {
-  userCreationSchema,
-  userRetrievalSchema,
-  userUpdateSchema,
-  userDeleteSchema,
-} = require("../model/User/User")(joi);
+const { userCreationSchema, userRetrievalSchema, userUpdateSchema } =
+  require("../model/User/User")(joi);
 const hashSalt = 10;
 
 module.exports = {
