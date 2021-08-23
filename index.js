@@ -20,7 +20,7 @@ const cookieSession = require("cookie-session");
 //test env rules
 if (process.env.NODE_ENV !== "test") {
   mongoose
-    .connect(keys.mongoURI, {
+    .connect(keys.testMongoURI, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
     })

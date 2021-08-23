@@ -2,6 +2,7 @@ module.exports = (app, passport) => {
   require("./authRoutes")(app, passport);
   //require("./fileUploadRoutes")(app);
   require("./userManagementRoutes")(app);
+  require("./applicantTrackingRoutes")(app);
 
   function isUserAllowed(req, res, next) {
     if (req.user) {
