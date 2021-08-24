@@ -69,7 +69,23 @@ module.exports = (joi) => {
     expiresOn: joi.date(),
   });
 
+  const jobRetrievalSchema = joi.object().keys({
+    ...commonProperties,
+  });
+
+  const jobUpdateSchema = joi.object().keys({
+    jobId: joi.string().min(5).max(30).required(),
+    updateMask: joi
+      .object()
+      .keys({
+        ...commonProperties,
+      })
+      .required(),
+  });
+
   return {
     jobCreationSchema,
+    jobRetrievalSchema,
+    jobUpdateSchema,
   };
 };
