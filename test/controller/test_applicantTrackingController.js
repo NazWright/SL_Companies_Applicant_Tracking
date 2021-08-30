@@ -148,11 +148,15 @@ describe("Testing applicant tracking controller", () => {
     assert(response.status === 500);
   });
 
-  it("delete a job from the system", async () => {
-    const response = await server.delete(`/api/jobs/delete/${jobId}`);
-    const isResponseEmpty = isObjectEmpty(response.body);
-    assert(!isResponseEmpty);
-    assert(response.body._id && response.body.publishedDate);
-    assert(response.status === 200);
-  });
+  it("Creates an application for a given job.", async () => {});
+
+  // it("Deletes a job from the system", async () => {
+  //   const response = await server.delete(`/api/jobs/delete/${jobId}`);
+  //   const isResponseEmpty = isObjectEmpty(response.body);
+  //   assert(!isResponseEmpty);
+  //   assert(response.body._id && response.body.publishedDate);
+  //   assert(response.status === 200);
+  // });
+
+  it("Deletes an application from the system", async () => {});
 });

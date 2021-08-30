@@ -20,7 +20,7 @@ const cookieSession = require("cookie-session");
 //test env rules
 if (process.env.NODE_ENV !== "test") {
   mongoose
-    .connect(keys.testMongoURI, {
+    .connect(keys.mongoURI, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
     })
@@ -53,7 +53,9 @@ app.use(
 //     createParentPath: true,
 //   })
 // );
+
 app.use(flash());
+
 app.use(
   i18n({
     translationsPath: path.join(__dirname, "i18n"), // <--- use here. Specify translations files path.

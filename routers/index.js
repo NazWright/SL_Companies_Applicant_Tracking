@@ -1,3 +1,7 @@
+const { DateTime } = require("luxon");
+const mongoose = require("mongoose");
+const Jobs = mongoose.model("jobs");
+
 module.exports = (app, passport) => {
   require("./authRoutes")(app, passport);
   //require("./fileUploadRoutes")(app);
@@ -12,8 +16,39 @@ module.exports = (app, passport) => {
     }
   }
 
-  app.get("/", isUserAllowed, function (req, res) {
-    res.locals = { title: "Dashboard", user: req.user };
+  app.get("/", isUserAllowed, async function (req, res) {
+    var today = DateTime.now();
+    const lastWeek = today.minus({ days: 7 });
+    // total set of jobs
+    const matchedJobs = await Jobs.find({ publisherId: req.user._id });
+    // set of jobs in the last week
+    const jobsCreatedLastWeek = matchedJobs.filter(
+      (job) => job.publishedDate >= lastWeek
+    );
+
+    const startValue = jobsCreatedLastWeek.length;
+    const endValue = matchedJobs.length;
+    const numberOfnewJobs = endValue - startValue;
+    const percentage =
+      startValue > 0 ? (numberOfnewJobs / startValue) * 100 : 0;
+    console.log("start", startValue);
+    console.log("end", endValue);
+    console.log("new jobs", numberOfnewJobs);
+    console.log("Percentage", percentage);
+
+    res.locals = {
+      title: "Dashboard",
+      user: req.user,
+      jobMeta: {
+        numTotalJobs: matchedJobs.length,
+        jobs: matchedJobs,
+        trend: {
+          percentage: percentage,
+          growth: percentage > 0,
+        },
+        hey: "hey",
+      },
+    };
     res.render("Dashboard/index");
   });
 
