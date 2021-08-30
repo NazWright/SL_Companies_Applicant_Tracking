@@ -53,7 +53,9 @@ app.use(
 //     createParentPath: true,
 //   })
 // );
+
 app.use(flash());
+
 app.use(
   i18n({
     translationsPath: path.join(__dirname, "i18n"), // <--- use here. Specify translations files path.
